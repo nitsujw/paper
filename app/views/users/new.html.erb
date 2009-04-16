@@ -1,0 +1,9 @@
+<%= error_messages_for @user %>
+
+<%= form_for @user, :action => url(:users) do %>
+<p>Login: <%= text_field :login %></p> 
+<p>Email:<%= text_area :email %></p> 
+<p>Password: <%= password_field :password %></p> 
+<p>Password Again: <%= password_field :password_confirmation %></p> 
+<p><%= submit "Create" %></p>
+<% end =%>

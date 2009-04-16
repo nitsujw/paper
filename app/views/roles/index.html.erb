@@ -1,0 +1,5 @@
+<% @roles.each do |r| %>
+	<%= r.name %>
+<% end %>
+
+<%= link_to "New Role", resource(:role, :new) %>

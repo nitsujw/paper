@@ -1,0 +1,5 @@
+<%= error_messages_for @role %>
+
+<%= form_for @role, :action => url(:roles) do %>
+<p>name: <%= text_field :name %>
+<% end =%>

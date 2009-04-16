@@ -1,0 +1,12 @@
+.vote-up {
+  visibility: visible;
+}
+.vote-up.voted {
+  visibility: hidden;
+}
+.vote-down {
+  visibility: visible;
+}
+.vote-down.voted {
+  visibility: hidden;
+}

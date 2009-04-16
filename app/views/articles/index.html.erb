@@ -1,0 +1,7 @@
+articles: 
+
+<% @articles.each do |a| %>
+	<div id="article-<%= a.id %>">
+		<span class="points"><%= a.votes.count %></span><span class="vote-up"><%= link_to "vote up", '#', :class => 'vote-up' %></span><span class="vote-down"><%= link_to "vote down", '#', :class => 'vote-down' %></span><h4><%= a.title %></h4>
+	</div>
+<% end %>
