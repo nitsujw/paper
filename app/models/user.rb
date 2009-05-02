@@ -25,6 +25,7 @@ class User
   has n, :votes
   
   def vote_for(story)
-    
+    vote = story.votes.first(:user_id => self.id)
+    vote.vote if vote
   end
 end

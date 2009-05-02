@@ -1,6 +1,6 @@
 class Vote
   include DataMapper::Resource
-  before :save, :calculate_new_rating
+  after :destroy, :calculate_new_rating
   
   property :id, Serial
   property :user_id, Integer, :nullable => false, :index => [:user_id_votable_id_votable_type, true]

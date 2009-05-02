@@ -7,6 +7,12 @@
 		<link rel="stylesheet" href="/stylesheets/style.css" type="text/css" media="screen" charset="utf-8" />
 		<script type="text/javascript" src="/javascripts/jquery.js"></script>
 		<script type="text/javascript" src="/javascripts/application.js"></script>
+		<script>
+		var user = <%= if session.user
+		 			     true
+					   else
+						 2
+					   end%></script>
   </head>
   <body>
     <%= message[:notice] %>

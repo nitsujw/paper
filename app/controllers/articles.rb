@@ -4,7 +4,7 @@ class Articles < Application
   before :authenticate, :only => :edit
 
   def index
-    @articles = Article.all
+    @articles = Article.all(:order => [:points.desc])
     display @articles
   end
 

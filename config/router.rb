@@ -27,7 +27,9 @@
 
 Merb.logger.info("Compiling routes...")
 Merb::Router.prepare do
-  resources :votes
+  resources :votes do
+    member :get_vote, :method => :delete
+  end
   resources :comments
   resources :writings
   resources :roles

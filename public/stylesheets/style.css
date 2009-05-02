@@ -1,12 +1,11 @@
 .vote-up {
   visibility: visible;
 }
-.vote-up.voted {
-  visibility: hidden;
+.vote-up.voted a{
+  color: blue;
 }
 .vote-down {
-  visibility: visible;
 }
-.vote-down.voted {
-  visibility: hidden;
+.vote-down.voted a{
+  color: blue;
 }

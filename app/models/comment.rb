@@ -5,7 +5,7 @@ class Comment
 
   property :votes, Integer
   property :words, Text
-  property :parent, Integer
+  property :points, Integer
 
   belongs_to :article
   has n, :votes

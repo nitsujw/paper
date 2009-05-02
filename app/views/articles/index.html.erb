@@ -1,7 +1,8 @@
 articles: 
 
 <% @articles.each do |a| %>
-	<div id="article-<%= a.id %>">
-		<span class="points"><%= a.votes.count %></span><span class="vote-up"><%= link_to "vote up", '#', :class => 'vote-up' %></span><span class="vote-down"><%= link_to "vote down", '#', :class => 'vote-down' %></span><h4><%= a.title %></h4>
+	<div id="<%=a.id%>">
+	  <h4><%= a.title %></h4>
+		<span class="points"><%= a.points %></span><span class="vote-up<%= ' voted' if session.user && session.user.vote_for(a) == 1 %>"><%= link_to "vote up", '#', :rel => resource(a) %></span><span class="vote-down <%= ' voted' if session.user && session.user.vote_for(a) == -1 %>"><%= link_to "vote down", '#' %></span>
 	</div>
 <% end %>
