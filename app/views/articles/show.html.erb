@@ -1,3 +1,14 @@
-<%= @article.title %>
-<%= @article.description %>
-<%= @article.link %>
+<%= @article.title %><br>
+<%= @article.description %><br>
+<%= @article.link %><br>
+
+<%= link_to "write this!", "#", :class => "writeit" %>
+
+<div class="write">
+  <%= @article.piece %>
+  <%= form_for @writing, :action => url(:writings) do %>
+  <%= text_field :title %>
+  <%= text_area :piece %>
+  <%= submit "Submit" %>
+  <% end =%>
+</div>

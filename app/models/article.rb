@@ -5,10 +5,13 @@ class Article
 
   property :title, String
   property :description, Text
+  property :piece, Text
   property :link, Text
+  property :short_link, String
   property :points, Integer, :nullable => false, :default => 0
   property :up_votes, Integer, :nullable => false, :default => 0
   property :down_votes, Integer, :nullable => false, :default => 0
+  property :created_time, Time, :default => Time.now
 
   belongs_to :user
   has n, :writings

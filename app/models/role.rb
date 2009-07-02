@@ -5,5 +5,4 @@ class Role
   property :name, String
   
   belongs_to :user
-
 end

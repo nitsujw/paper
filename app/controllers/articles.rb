@@ -1,7 +1,6 @@
 class Articles < Application
   # provides :xml, :yaml, :js
   before :ensure_authenticated, :only => :new
-  before :authenticate, :only => :edit
 
   def index
     @articles = Article.all(:order => [:points.desc])
@@ -10,6 +9,7 @@ class Articles < Application
 
   def show(id)
     @article = Article.get(id)
+    @writing = Writing.new
     raise NotFound unless @article
     display @article
   end
@@ -29,7 +29,18 @@ class Articles < Application
 
   def create(article)
     @article = Article.new(article)
+    @article.user_id = session.user.id
+    @article.created_time = Time.now
     if @article.save
+      if @article.link == ""
+        @article.link = resource(@article)
+        @article.save
+      else
+        short_link = @article.link.gsub(/^(https?:\/\/)?/, "")
+        short_link.gsub!(/\/.+/, "") if short_link =~ /\//
+        @article.short_link = short_link
+        @article.save
+      end
       redirect resource(@article), :message => {:notice => "Article was successfully created"}
     else
       message[:error] = "Article failed to be created"
@@ -39,6 +50,9 @@ class Articles < Application
 
   def update(id, article)
     @article = Article.get(id)
+    if !params[:article][:link]
+      params[:article][:link] = ""
+    end
     raise NotFound unless @article
     if @article.update_attributes(article)
        redirect resource(@article)
@@ -58,11 +72,6 @@ class Articles < Application
   end
 
 private
-  
-  def authenticate
-    unless session.user.id == User.first(:login => params[:login]).id
-      redirect resource(:quotes), :message => {:notice => "Not your tag!"}
-    end
-  end
+
 
 end # Articles

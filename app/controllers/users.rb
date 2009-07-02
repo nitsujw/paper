@@ -1,8 +1,13 @@
 class Users < Application
   # provides :xml, :yaml, :js
+  
+  def index
+    @users = User.all
+    display @users
+  end
 
-  def show(login)
-    @user = User.first(:login => login)
+  def show(id)
+    @user = User.first(:id => id)
     raise NotFound unless @user
     display @user
   end
@@ -15,7 +20,7 @@ class Users < Application
 
   def edit(login)
     only_provides :html
-    @user = User.first(:login => login)
+    @user = User.first(:id => params[:id])
     raise NotFound unless @user
     display @user
   end
@@ -30,7 +35,7 @@ class Users < Application
   end
 
   def update(login, user)
-    @user = User.first(:login => login)
+    @user = User.first(:id => params[:id].to_i)
     raise NotFound unless @user
     if @user.update_attributes(user)
        redirect resource(@user), :message => "Your profile was successfully saved"

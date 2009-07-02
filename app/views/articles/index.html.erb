@@ -1,8 +1,28 @@
-articles: 
-
+<% num = 1 %>
 <% @articles.each do |a| %>
-	<div id="<%=a.id%>">
-	  <h4><%= a.title %></h4>
-		<span class="points"><%= a.points %></span><span class="vote-up<%= ' voted' if session.user && session.user.vote_for(a) == 1 %>"><%= link_to "vote up", '#', :rel => resource(a) %></span><span class="vote-down <%= ' voted' if session.user && session.user.vote_for(a) == -1 %>"><%= link_to "vote down", '#' %></span>
+  <div class="span-1" style="padding-top: 16px; text-align: center;"><%= num %></div>
+	<div id="<%=a.id%>" class="span-1">
+	  <div class="arrow up<%= ' voted' if session.user && session.user.vote_for(a) == 1 %>" onclick=""></div>
+  		<center><span class="points"><%= a.points %></span></center>
+		<div class="arrow down<%= ' voted' if session.user && session.user.vote_for(a) == -1 %>" onclick=""></div>
 	</div>
+	<div class="span-16 last">
+	  <%= link_to a.title, a.link %> <%= "(#{a.short_link})" if a.short_link %><br><br>submitted by <%= link_to a.user.login, resource(a.user) %> <%= distance_of_time_in_words(a.created_time, Time.now) %>
+	</div>
+	<% num += 1 %>
+	<hr class="space"/>
 <% end %>
+
+<% throw_content :side do %>
+  <div class="span-7 box last">
+    <% if session.user %>
+        <center>Welcome, <%= session.user.login %>!</center>
+    <% else %>
+        login / register form will go here
+    <% end %>
+  </div>
+  <div class="span-7 box last">
+    some other box
+  </div>
+<% end %>
+

@@ -9,3 +9,26 @@
 .vote-down.voted a{
   color: blue;
 }
+
+.write {
+  display: none;
+}
+
+.arrow {
+    margin: 2px 0px 0px 0px;
+    width: 100%;
+    height: 14px;
+    display: block;
+    cursor: pointer;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.side-box {
+  border: 1px solid blue;
+  margin-bottom: 5px;
+}
+.arrow.up.voted { background-image: url(/images/aupmod.gif); }
+.arrow.down.voted { background-image: url(/images/adownmod.gif); }
+.arrow.up { background-image: url(/images/aupgray.gif); }
+.arrow.down { background-image: url(/images/adowngray.gif); }

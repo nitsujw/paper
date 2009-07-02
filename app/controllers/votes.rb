@@ -2,7 +2,8 @@ class Votes < Application
   provides :js
 
   def index
-    redirect '/login'
+    @votes = Vote.all
+    display @votes
   end
 
   def show(id)
@@ -15,7 +16,13 @@ class Votes < Application
     @vote = Vote.first(:user_id => session.user.id, :votable_id => params[:article_id], :votable_type => "Article")
     @vote.destroy
     @article = Article.get(params[:article_id])
-    display @article
+    @article.points += params[:score].to_i
+    @article.save
+    if request.ajax?
+      display @article
+    else
+      redirect resource(@article), :message => {:notice => "Vote was successfully created"}
+    end
   end
 
   def new
@@ -31,20 +38,20 @@ class Votes < Application
     display @vote
   end
 
-  def create(vote)
+  def create
     @vote = Vote.new
     @vote.vote = params[:vote].to_i
     @vote.votable_type = "Article"
     @vote.votable_id = params[:article_id]
     @vote.user_id = session.user.id
-    @article = Article.get(params[:article_id])
+    @article = Article.get(params[:article_id].to_i)
     if @vote.save
-      if params[:voted].to_i == 1
+      if (params[:other_arrow].to_i == 1)
         vote = Vote.first(:user_id => session.user.id, :votable_id => params[:article_id], :votable_type => "Article")
         vote.destroy
-      else
-        @vote.calculate_new_rating
       end
+      @article.points += params[:score].to_i
+      @article.save
       if request.ajax?
         display @article
       else

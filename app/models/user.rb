@@ -24,8 +24,8 @@ class User
   has n, :articles
   has n, :votes
   
-  def vote_for(story)
-    vote = story.votes.first(:user_id => self.id)
+  def vote_for(votable_thing)
+    vote = Vote.first(:user_id => self.id, :votable_id => votable_thing.id, :votable_type => votable_thing.class.to_s)
     vote.vote if vote
   end
 end

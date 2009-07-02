@@ -27,9 +27,7 @@
 
 Merb.logger.info("Compiling routes...")
 Merb::Router.prepare do
-  resources :votes do
-    member :get_vote, :method => :delete
-  end
+  resources :votes
   resources :comments
   resources :writings
   resources :roles
@@ -49,5 +47,5 @@ Merb::Router.prepare do
   default_routes
   
   # Change this for your home page to be available at /
-  match('/').to(:controller => 'articles', :action =>'index')
+  match('/').to(:controller => 'articles', :action =>'index').name(:homepage)
 end
