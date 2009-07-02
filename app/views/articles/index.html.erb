@@ -1,3 +1,12 @@
+<script type="text/javascript">
+$(document).ready(function(){
+  $("#login").click(function(){
+    $.facebox(" <%= escape_js(partial("users/login_form"))%>");
+    return false
+  });
+});
+</script>
+
 <% num = 1 %>
 <% @articles.each do |a| %>
   <div class="span-1" style="padding-top: 16px; text-align: center;"><%= num %></div>
@@ -19,6 +28,7 @@
         <center>Welcome, <%= session.user.login %>!</center>
     <% else %>
         login / register form will go here
+        <%= link_to "login", "#", :id => "login" %>
     <% end %>
   </div>
   <div class="span-7 box last">
